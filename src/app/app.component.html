@@ -1,0 +1,57 @@
+<h2>{{ title }}</h2>
+
+<div class="modal-body">
+  <form #addForm="ngForm" (ngSubmit)="onAddKredi(addForm)">
+    <div class="form-row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="krediTutari">Kredi Tutarı</label>
+          <input type="number" [(ngModel)]="newKredi.krediTutari" name="krediTutari" class="form-control" id="krediTutari" placeholder="Kredi Tutarı" required>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="vade">Vade Süresi</label>
+          <input type="number" [(ngModel)]="newKredi.vade" name="vade" class="form-control" id="vade" placeholder="Vade Süresi" required>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="faizOrani">Faiz Oranı</label>
+          <input type="number" [(ngModel)]="newKredi.faizOrani" name="faizOrani" class="form-control" id="faizOrani" placeholder="Faiz Oranı" required>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Hesapla</button>
+        <button type="button" class="btn btn-success" (click)="exportToExcel()">Excele Kaydet</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="rTable">
+  <div class="rTableHeader">
+    <div class="rTableRow">
+      <div class="rTableCell">Taksit No</div>
+      <div class="rTableCell">Taksit Tarihi</div>
+      <div class="rTableCell">Taksit Tutarı</div>
+      <div class="rTableCell">Anapara</div>
+      <div class="rTableCell">Faiz</div>
+      <div class="rTableCell">BSMV</div>
+      <div class="rTableCell">KKDF</div>
+      <div class="rTableCell">Kalan Anapara</div>
+    </div>
+  </div>
+  <div class="rTableBody">
+    <div *ngFor="let kredi of kredis; let i = index" class="rTableRow">
+      <div class="rTableCell TaksitNo">{{ i + 1 }}</div>
+      <div class="rTableCell TaksitTarihi">{{ newKredi.taksitTarihleri[i] }}</div>
+      <div class="rTableCell TaksitTutari">{{ kredi.taksitTutari | number:'1.3-3' }}</div>
+      <div class="rTableCell AnaparaTutari">{{ kredi.anaPara | number:'1.3-3' }}</div>
+      <div class="rTableCell FaizTutari">{{ kredi.faizTutari | number:'1.3-3' }}</div>
+      <div class="rTableCell BSMVTutari">{{ kredi.bsmv | number:'1.3-3' }}</div>
+      <div class="rTableCell KKDFTutari">{{ kredi.kkdf | number:'1.3-3' }}</div>
+      <div class="rTableCell KalanAnaparaTutari">{{ kredi.kalanAnaPara | number:'1.3-3' }}</div>
+    </div>
+  </div>
+ </div>
